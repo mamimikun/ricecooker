@@ -5,6 +5,7 @@ PACMAN_PROGS=(
     # graphics
 
     'xorg' # display server
+    'xorg-xinit' # for starting X from the command line
     
     # media
     
