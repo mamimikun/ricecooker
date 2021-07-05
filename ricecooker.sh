@@ -44,6 +44,9 @@ main () {
     do
 	git_install $PROG_NAME
     done
+    
+    cd
+    git clone https://github.com/mamimikun/dot.git
 }
 
 source progs/pacman_progs.sh
