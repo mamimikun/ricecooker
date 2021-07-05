@@ -2,6 +2,10 @@
 
 PACMAN_PROGS=(
 
+    # graphics
+
+    'xorg' # display server
+    
     # media
     
     'arandr' # monitor layouts
