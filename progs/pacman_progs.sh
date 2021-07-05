@@ -54,6 +54,7 @@ PACMAN_PROGS=(
     'unrar' # rar utility
     'unzip' # zip utility
     'udiskie' # automount utility
+    'tmux' # terminal mux
 
     # fonts (no description provided)
 
