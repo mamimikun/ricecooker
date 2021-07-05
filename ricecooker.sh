@@ -44,9 +44,12 @@ main () {
     do
 	git_install $PROG_NAME
     done
-    
+
+    # grab the dotfiles
     cd
-    git clone https://github.com/mamimikun/dot.git
+    mkdir .dot
+    git clone --bare https://github.com/mamimikun/dot.git $HOME/.dot
+    git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout
 }
 
 source progs/pacman_progs.sh

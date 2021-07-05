@@ -5,7 +5,8 @@ PACMAN_PROGS=(
     # graphics
 
     'xorg' # display server
-    'xorg-xinit' # for starting X from the command line
+    'xorg-xinit' # starts X from the command line
+    'xwallpaper' # sets the wallpaper
     
     # media
     
