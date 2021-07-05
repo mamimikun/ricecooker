@@ -25,8 +25,8 @@ yay_install () { # args: <prog_name>
 }
 
 main () {
-    #pacman -Syu 
-    #mkdir /etc/git_progs
+    pacman -Syu 
+    mkdir /etc/git_progs
     # install the pacman programs
     for PROG_NAME in ${PACMAN_PROGS[*]}
     do
