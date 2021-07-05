@@ -71,5 +71,6 @@ PACMAN_PROGS=(
     'cmatrix' # matrix terminal
     'fcitx5-im' # cjk input support
     'fcitx5-mozc' # japanese input support
+    'redshift' # adjusts screen temperature
     
 )
