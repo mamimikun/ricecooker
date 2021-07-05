@@ -46,7 +46,7 @@ main () {
     done
 }
 
-source pacman_progs.sh
-source aur_progs.sh
-source git_progs.sh
+source progs/pacman_progs.sh
+source progs/aur_progs.sh
+source progs/git_progs.sh
 main 
