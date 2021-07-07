@@ -24,9 +24,12 @@ yay_install () { # args: <prog_name>
     yay -S $1 --noconfirm --needed
 }
 
-main () {
+prog_installer () {
+
+    # update the stuff first
     pacman -Syu 
     mkdir /etc/git_progs
+    
     # install the pacman programs
     for PROG_NAME in ${PACMAN_PROGS[*]}
     do
@@ -44,15 +47,17 @@ main () {
     do
 	git_install $PROG_NAME
     done
+}
 
-    # grab the dotfiles
+dot_grabber () {
     cd
     mkdir .dot
     git clone --bare https://github.com/mamimikun/dot.git $HOME/.dot
     git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout
+    
 }
 
 source progs/pacman_progs.sh
 source progs/aur_progs.sh
 source progs/git_progs.sh
-main 
+prog_installer
