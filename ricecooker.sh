@@ -79,8 +79,7 @@ user_create () { # args: <username>
     
     echo '127.0.0.1 localhost 
           ::1       localhost 
-          127.0.1.1 '"$RC_HOSTNAME" 
-      >> /etc/hosts
+          127.0.1.1 '"$RC_HOSTNAME" >> /etc/hosts
 
     echo 'running mkinitcpio'
     mkinitcpio -P
