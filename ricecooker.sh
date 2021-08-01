@@ -12,8 +12,9 @@ git_install () { # args: <url> [ pkg ]
     then
 	sudo -u $RC_USERNAME makepkg -si --noconfirm 
     else	
- 	sudo -u $RC_USERNAME make clean install
+ 	make clean install
     fi
+    cd /home/$RC_USERNAME
 }
 
 pacman_install () { # args: <prog_name>
@@ -58,7 +59,8 @@ dot_grabber () {
     sudo -u $RC_USERNAME mkdir .dot
     sudo -u $RC_USERNAME \
 	 git clone --bare https://github.com/mamimikun/dot.git $HOME/.dot
-    sudo -u $RC_USERNAME git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout
+    sudo -u $RC_USERNAME git --git-dir=/home/$RC_USERNAME/.dot/ \
+	 --work-tree=/home/$RC_USERNAME checkout
 }
 
 user_create () {

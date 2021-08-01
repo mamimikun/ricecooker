@@ -2,6 +2,8 @@
 
 PACMAN_PROGS=(
 
+    'base-devel' # useful stuff for later on
+    
     # graphics
 
     'xorg' # display server
