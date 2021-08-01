@@ -1,6 +1,15 @@
 # ricecooker
-the arch ricecooker.
 
-this aims to be an automated arch linux rice script. hopefully, it'll include an automated install script one day.
+The arch ricecooker. It installs the programs I use on arch along with my
+dotfiles. It'll work on any new install with some prerequisites:
 
-for now, this will only install packages and grab dotfiles.
+1. `sudo` and `git` should be installed
+2. `rc_vars.sh` should be filled out
+
+`rc_vars.sh` contains a few variables that need to be filled out before running
+the script.
+
+If the prerequisites are met, cloning the repo and running `ricecooker.sh`
+should do all the work on it's own. A couple of password prompts will appear,
+but that's all.
+
