@@ -3,14 +3,13 @@
 # rices a fresh arch linux install. Should be run on a brand new system as root
 
 git_install () { # args: <url> [ pkg ]
-    cd /etc/git_progs
+    cd /home/$RC_USERNAME/build
     sudo -u $RC_USERNAME git clone $1
     # get the newest dir
     DIR=$(ls --sort=time | head -n 1)
     cd $DIR
     if [ $2 == "pkg" ]
     then
-	
 	sudo -u $RC_USERNAME makepkg -si --noconfirm 
     else	
  	sudo -u $RC_USERNAME make clean install
@@ -29,7 +28,8 @@ yay_install () { # args: <prog_name>
 prog_installer () {
 
     pacman -Syu --noconfirm --needed
-    sudo -u $RC_USERNAME mkdir /etc/git_progs
+    
+    sudo -u $RC_USERNAME mkdir /home/$RC_USERNAME/build
     
     # install the pacman programs
     for PROG_NAME in ${PACMAN_PROGS[*]}
@@ -55,10 +55,10 @@ prog_installer () {
 
 dot_grabber () {
     cd /home/$RC_USERNAME
-    sudo -u su $RC_USERNAME mkdir .dot
-    sudo -u su $RC_USERNAME \
+    sudo -u $RC_USERNAME mkdir .dot
+    sudo -u $RC_USERNAME \
 	 git clone --bare https://github.com/mamimikun/dot.git $HOME/.dot
-    sudo -u su $RC_USERNAME git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout
+    sudo -u $RC_USERNAME git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout
 }
 
 user_create () {
