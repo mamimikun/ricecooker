@@ -100,7 +100,12 @@ priv_setter () {
 }
 
 rc_check () {
-    [ -z "$RC_USERNAME" ] && echo 'rc empty' && exit
+    [ -z "$RC_USERNAME" ] && echo 'RC_USERNAME not filled out' && exit
+    [ -z "$RC_TIMEZONE_REGION" ] && echo 'RC_TIMEZONE_REGION not filled out' \
+	&& exit
+    [ -z "$RC_TIMEZONE_CITY" ] && echo 'RC_TIMEZONE_CITY not filled out' && exit
+    [ -z "$RC_HOSTNAME" ] && echo 'RC_HOSTNAME not filled out' && exit
+    [ -z "$RC_LOCALE" ] && echo 'RC_LOCALE not filled out' && exit
 }
 
 main () {
