@@ -99,8 +99,13 @@ priv_setter () {
     echo "$RC_USERNAME"' ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 }
 
+rc_check () {
+    [ -z "$RC_USERNAME" ] && echo 'rc empty' && exit
+}
+
 main () {
     source ./rc_vars.sh
+    rc_check
     source progs/pacman_progs.sh
     source progs/aur_progs.sh
     source progs/git_progs.sh
