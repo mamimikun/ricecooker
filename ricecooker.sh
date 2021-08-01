@@ -56,7 +56,6 @@ prog_installer () {
 
 dot_grabber () {
     cd /home/$RC_USERNAME
-    rm -rf *
     sudo -u $RC_USERNAME \
 	 git clone --bare https://github.com/mamimikun/dot.git \
 	 /home/$RC_USERNAME/.dot
@@ -80,7 +79,7 @@ user_create () {
     locale-gen
 
     echo 'setting hostname...'
-    echo '$RC_HOSTNAME' > /etc/hostname
+    echo "$RC_HOSTNAME" > /etc/hostname
     
     echo '127.0.0.1 localhost 
           ::1       localhost 
