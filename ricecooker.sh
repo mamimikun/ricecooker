@@ -10,6 +10,7 @@ git_install () { # args: <url> [ pkg ]
     cd $DIR
     if [ $2 == "pkg" ]
     then
+	
 	sudo -u $RC_USERNAME makepkg -si --noconfirm 
     else	
  	sudo -u $RC_USERNAME make clean install
@@ -17,7 +18,8 @@ git_install () { # args: <url> [ pkg ]
 }
 
 pacman_install () { # args: <prog_name>
-    sudo -u $RC_USERNAME pacman -S $1 --noconfirm --needed
+    # runs as root
+    pacman -S $1 --noconfirm --needed
 }
 
 yay_install () { # args: <prog_name>
