@@ -58,7 +58,8 @@ dot_grabber () {
     cd /home/$RC_USERNAME
     sudo -u $RC_USERNAME mkdir .dot
     sudo -u $RC_USERNAME \
-	 git clone --bare https://github.com/mamimikun/dot.git $HOME/.dot
+	 git clone --bare https://github.com/mamimikun/dot.git \
+	 /home/$RC_USERNAME/.dot
     sudo -u $RC_USERNAME git --git-dir=/home/$RC_USERNAME/.dot/ \
 	 --work-tree=/home/$RC_USERNAME checkout
 }
