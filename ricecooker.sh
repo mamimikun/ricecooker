@@ -71,15 +71,15 @@ user_create () { # args: <username>
     echo 'generating locale...'
     sed -i 's/#'"$RC_LOCALE"'/'"$RC_LOCALE"'/g' /etc/locale.gen
 
-    echo 'LANG='"$RC_LOCALE" >> /etc/locale.conf
+    echo 'LANG='"$RC_LOCALE" > /etc/locale.conf
     locale-gen
 
     echo 'setting hostname...'
-    echo '$RC_HOSTNAME' >> /etc/hostname
+    echo '$RC_HOSTNAME' > /etc/hostname
     
     echo '127.0.0.1 localhost 
           ::1       localhost 
-          127.0.1.1 '"$RC_HOSTNAME" >> /etc/hosts
+          127.0.1.1 '"$RC_HOSTNAME" > /etc/hosts
 
     echo 'running mkinitcpio'
     mkinitcpio -P
