@@ -4,13 +4,13 @@
 
 git_install () { # args: <url> [ pkg ]
     cd /etc/git_progs
-    git clone $1
+    sudo -u $RC_USERNAME git clone $1
     # get the newest dir
     DIR=$(ls --sort=time | head -n 1)
     cd $DIR
     if [ $2 == "pkg" ]
     then
-	sudo -u $RC_USERNAME makepkg -si --noconfirm
+	sudo -u $RC_USERNAME makepkg -si --noconfirm 
     else	
  	sudo -u $RC_USERNAME make clean install
     fi
@@ -26,8 +26,8 @@ yay_install () { # args: <prog_name>
 
 prog_installer () {
 
-    pacman -Syu 
-    mkdir /etc/git_progs
+    pacman -Syu --noconfirm --needed
+    sudo -u $RC_USERNAME mkdir /etc/git_progs
     
     # install the pacman programs
     for PROG_NAME in ${PACMAN_PROGS[*]}
