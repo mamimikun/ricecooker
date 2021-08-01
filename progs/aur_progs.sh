@@ -2,7 +2,7 @@
 
 AUR_PROGS=(
 
-    'ttf-google-fonts' # cool fonts
+    'ttf-google-fonts-git' # cool fonts
     'zoom' # used for videoconference 
     'slack' # messaging app
     
