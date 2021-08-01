@@ -10,23 +10,22 @@ git_install () { # args: <url> [ pkg ]
     cd $DIR
     if [ $2 == "pkg" ]
     then
-	makepkg -si --noconfirm
+	sudo -u $RC_USERNAME makepkg -si --noconfirm
     else	
-	make clean install
+ 	sudo -u $RC_USERNAME make clean install
     fi
 }
 
 pacman_install () { # args: <prog_name>
-    pacman -S $1 --noconfirm --needed
+    sudo -u $RC_USERNAME pacman -S $1 --noconfirm --needed
 }
 
 yay_install () { # args: <prog_name>
-    yay -S $1 --noconfirm --needed
+    sudo -u $RC_USERNAME yay -S $1 --noconfirm --needed
 }
 
 prog_installer () {
 
-    # update the stuff first
     pacman -Syu 
     mkdir /etc/git_progs
     
@@ -35,14 +34,17 @@ prog_installer () {
     do
 	pacman_install $PROG_NAME
     done
+    
     # install yay
     git_install https://aur.archlinux.org/yay.git pkg
+    
     # install the aur programs
     for PROG_NAME in ${AUR_PROGS[*]}
     do
 	yay_install $PROG_NAME
     done
-    # install the git programs
+    
+    # install the git programs. ran as root
     for PROG_NAME in ${GIT_PROGS[*]}
     do
 	git_install $PROG_NAME
@@ -50,14 +52,67 @@ prog_installer () {
 }
 
 dot_grabber () {
+    su $RC_HOSTNAME
     cd
     mkdir .dot
     git clone --bare https://github.com/mamimikun/dot.git $HOME/.dot
     git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout
-    
 }
 
-source progs/pacman_progs.sh
-source progs/aur_progs.sh
-source progs/git_progs.sh
-prog_installer
+user_create () { # args: <username> 
+
+    echo 'adding timezone...'
+    ln -sf /usr/share/zoneinfo/$RC_TIMEZONE_REGION/$RC_TIMEZONE_CITY \
+       /etc/localtime
+    
+    hwclock --systohc
+
+    # etc stuff
+    echo 'generating locale...'
+    sed -i 's/#'"$RC_LOCALE"'/'"$RC_LOCALE"'/g' /etc/locale.gen
+
+    echo 'LANG='"$RC_LOCALE" >> /etc/locale.conf
+    locale-gen
+
+    echo 'setting hostname...'
+    echo '$RC_HOSTNAME' >> /etc/hostname
+    
+    echo '\ 
+      127.0.0.1 localhost \
+      ::1       localhost \
+      127.0.1.1'"$RC_HOSTNAME" \
+      >> /etc/hosts
+
+    echo 'running mkinitcpio'
+    mkinitcpio -P
+    
+    echo '======= set new root password ======='
+    passwd
+
+    # user creation
+    echo 'adding user...'
+    useradd -m $RC_USERNAME
+    echo '======= set new user password ======='
+    passwd $RC_USERNAME
+}
+
+priv_setter () {
+    # user privileges
+    echo "$RC_USERNAME"' ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+}
+
+main () {
+    source ./rc_vars.sh
+    source progs/pacman_progs.sh
+    source progs/aur_progs.sh
+    source progs/git_progs.sh
+    
+    user_create
+    priv_setter
+    su $RC_USERNAME
+    
+    prog_installer
+    dot_grabber
+}
+
+main
