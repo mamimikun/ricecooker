@@ -52,11 +52,11 @@ prog_installer () {
 }
 
 dot_grabber () {
-    su $RC_HOSTNAME
-    cd
-    mkdir .dot
-    git clone --bare https://github.com/mamimikun/dot.git $HOME/.dot
-    git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout
+    cd /home/$RC_USERNAME
+    sudo -u su $RC_USERNAME mkdir .dot
+    sudo -u su $RC_USERNAME \
+	 git clone --bare https://github.com/mamimikun/dot.git $HOME/.dot
+    sudo -u su $RC_USERNAME git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout
 }
 
 user_create () { # args: <username> 
@@ -77,10 +77,9 @@ user_create () { # args: <username>
     echo 'setting hostname...'
     echo '$RC_HOSTNAME' >> /etc/hostname
     
-    echo '\ 
-      127.0.0.1 localhost \
-      ::1       localhost \
-      127.0.1.1'"$RC_HOSTNAME" \
+    echo '127.0.0.1 localhost 
+          ::1       localhost 
+          127.0.1.1 '"$RC_HOSTNAME" 
       >> /etc/hosts
 
     echo 'running mkinitcpio'
@@ -109,7 +108,6 @@ main () {
     
     user_create
     priv_setter
-    su $RC_USERNAME
     
     prog_installer
     dot_grabber
