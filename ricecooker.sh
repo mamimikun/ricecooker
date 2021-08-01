@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# rices a fresh arch linux install. meant to be run with root privileges
+# rices a fresh arch linux install. Should be run on a brand new system as root
 
 git_install () { # args: <url> [ pkg ]
     cd /etc/git_progs
@@ -59,7 +59,7 @@ dot_grabber () {
     sudo -u su $RC_USERNAME git --git-dir=$HOME/.dot/ --work-tree=$HOME checkout
 }
 
-user_create () { # args: <username> 
+user_create () {
 
     echo 'adding timezone...'
     ln -sf /usr/share/zoneinfo/$RC_TIMEZONE_REGION/$RC_TIMEZONE_CITY \
